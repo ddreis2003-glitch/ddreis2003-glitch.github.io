@@ -175,6 +175,253 @@ async function renderGithubRepos() {
 }
 
 /* -----------------------------------------------------------------------
+   Hero background animation
+
+   A slow field of drifting dots, linked by faint lines when they come
+   close, that gently leans toward the cursor. Deliberately understated —
+   it must never compete with the hero text sitting on top of it.
+
+   Guardrails worth keeping if you edit this:
+   - Particle alpha stays low. The white hero text must stay legible.
+   - Honours prefers-reduced-motion: draws ONE static frame, never animates.
+   - Pauses when the tab is hidden or the hero scrolls out of view, so it
+     costs nothing while you're reading the rest of the page.
+   - Particle count scales with area and is capped, so phones stay smooth.
+   ----------------------------------------------------------------------- */
+function initHeroCanvas() {
+  const canvas = document.getElementById("heroCanvas");
+  if (!canvas || !canvas.getContext) return;
+
+  const ctx = canvas.getContext("2d");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  const DOT_RGB = "143, 180, 217"; // --accent-on-dark
+  const DOT_ALPHA = 0.5;
+  const LINE_ALPHA = 0.14;         // keep low: lines cross the headline
+  const PULL_RADIUS = 140;
+
+  let width = 0;
+  let height = 0;
+  let particles = [];
+  let rafId = null;
+  let visible = true;
+
+  const pointer = { x: 0, y: 0, active: false };
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap: retina phones
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function seed() {
+    // Density follows area, floor for tiny screens, ceiling for big ones.
+    const target = Math.round((width * height) / 16000);
+    const count = Math.max(24, Math.min(80, target));
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        r: Math.random() * 1.3 + 0.7
+      });
+    }
+  }
+
+  function linkDistance() {
+    return Math.max(90, Math.min(150, width / 9));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    const link = linkDistance();
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      for (let j = i + 1; j < particles.length; j++) {
+        const q = particles[j];
+        const dx = p.x - q.x;
+        const dy = p.y - q.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < link * link) {
+          const alpha = (1 - Math.sqrt(d2) / link) * LINE_ALPHA;
+          ctx.strokeStyle = `rgba(${DOT_RGB}, ${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    ctx.fillStyle = `rgba(${DOT_RGB}, ${DOT_ALPHA})`;
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function step() {
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (pointer.active) {
+        const dx = pointer.x - p.x;
+        const dy = pointer.y - p.y;
+        const d = Math.hypot(dx, dy);
+        if (d < PULL_RADIUS && d > 0.5) {
+          const pull = (1 - d / PULL_RADIUS) * 0.4;
+          p.x += (dx / d) * pull;
+          p.y += (dy / d) * pull;
+        }
+      }
+
+      // Wrap around the edges so the field never thins out.
+      if (p.x < -20) p.x = width + 20;
+      else if (p.x > width + 20) p.x = -20;
+      if (p.y < -20) p.y = height + 20;
+      else if (p.y > height + 20) p.y = -20;
+    }
+
+    draw();
+    rafId = requestAnimationFrame(step);
+  }
+
+  function start() {
+    if (rafId !== null || prefersReducedMotion) return;
+    rafId = requestAnimationFrame(step);
+  }
+
+  function stop() {
+    if (rafId === null) return;
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  function rebuild() {
+    resize();
+    seed();
+    draw(); // paint immediately, so there's never an empty frame
+  }
+
+  rebuild();
+
+  if (prefersReducedMotion) {
+    // Static field only. Still redraw on resize so it never looks stretched.
+    window.addEventListener("resize", rebuild);
+    return;
+  }
+
+  if (canHover) {
+    canvas.parentElement.addEventListener("mousemove", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - rect.left;
+      pointer.y = e.clientY - rect.top;
+      pointer.active = true;
+    });
+    canvas.parentElement.addEventListener("mouseleave", () => {
+      pointer.active = false;
+    });
+  }
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(rebuild, 150);
+  });
+
+  // Don't burn frames on a hidden tab.
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop();
+    else if (visible) start();
+  });
+
+  // Don't burn frames once the hero is scrolled past.
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      visible = entries[0].isIntersecting;
+      if (visible && !document.hidden) start();
+      else stop();
+    }, { threshold: 0 }).observe(canvas);
+  } else {
+    start();
+  }
+}
+
+/* -----------------------------------------------------------------------
+   Nav scroll-spy — highlights the nav link for the section in view.
+
+   Deliberately NOT using IntersectionObserver: its enter/leave events
+   batch unpredictably on fast jumps, which left the wrong link lit.
+   Reading positions on scroll is deterministic — whichever section
+   straddles a line just below the sticky nav is the active one.
+   Throttled through requestAnimationFrame, so it stays cheap.
+   ----------------------------------------------------------------------- */
+function initScrollSpy() {
+  const links = Array.from(document.querySelectorAll(".nav-link"));
+  const pairs = links
+    .map((link) => ({ link, section: document.getElementById(link.getAttribute("href").slice(1)) }))
+    .filter((pair) => pair.section);
+
+  if (!pairs.length) return;
+
+  const LINE = 100; // just below the 64px sticky nav
+  let current = null;
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+
+    let active = null;
+
+    // At the very bottom, light the last link (Contact). The footer is too
+    // short to ever reach the detection line, so it would never activate.
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    if (atBottom) {
+      active = pairs[pairs.length - 1].link;
+    } else {
+      for (const { link, section } of pairs) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= LINE && rect.bottom > LINE) active = link;
+      }
+
+      // Nothing straddles the line (e.g. between sections): fall back to the
+      // last section that starts above it.
+      if (!active) {
+        for (const { link, section } of pairs) {
+          if (section.getBoundingClientRect().top <= LINE) active = link;
+        }
+      }
+    }
+
+    if (active !== current) {
+      links.forEach((l) => l.classList.remove("is-active"));
+      if (active) active.classList.add("is-active");
+      current = active;
+    }
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+
+  window.addEventListener("resize", update);
+  update();
+}
+
+/* -----------------------------------------------------------------------
    Mobile nav toggle
    ----------------------------------------------------------------------- */
 function initNavToggle() {
@@ -202,5 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   renderGithubRepos();
   initNavToggle();
+  initHeroCanvas();
+  initScrollSpy();
   document.getElementById("year").textContent = new Date().getFullYear();
 });
