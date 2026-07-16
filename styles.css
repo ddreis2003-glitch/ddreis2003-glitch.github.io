@@ -106,10 +106,12 @@ button:focus-visible {
 
 .btn-primary:hover { background: var(--off-white); }
 
+/* Secondary is deliberately quieter than the solid-white primary — in
+   monochrome, two full-white buttons would carry identical weight. */
 .btn-secondary {
   background: transparent;
-  color: var(--white);
-  border-color: var(--white);
+  color: var(--off-white);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .btn-secondary:hover {
@@ -223,7 +225,6 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  border: 3px solid var(--on-dark);
 }
 
 .hero-name {
@@ -284,11 +285,18 @@ button:focus-visible {
   margin: 0 auto;
 }
 
+/* Two columns, not three. At 760px a 3-way split left each column ~232px —
+   too narrow for the longest skill pill (249px), which then wrapped. */
 .about-details {
   margin-top: 2.5rem;
   display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/* Activities has the most prose, so let it run the full width on its own row. */
+.about-block:last-child {
+  grid-column: 1 / -1;
 }
 
 .about-block h3 {
@@ -306,8 +314,10 @@ button:focus-visible {
   gap: 0.5rem;
 }
 
+/* White, not off-white: these sit on the off-white About section, so an
+   off-white fill left them as bare outlines with no lift. */
 .tag {
-  background: var(--off-white);
+  background: var(--white);
   border: 1px solid var(--border);
   color: var(--slate);
   font-size: 0.85rem;
@@ -340,7 +350,9 @@ button:focus-visible {
   height: 12px;
   border-radius: 50%;
   background: var(--accent);
-  border: 2px solid var(--off-white);
+  /* Ring masks the timeline rule behind the dot, so it must match the
+     Experience section's background (--white), not the page background. */
+  border: 2px solid var(--white);
 }
 
 .timeline-role {
@@ -434,10 +446,17 @@ button:focus-visible {
 }
 
 /* ---------- GitHub repo cards ---------- */
+/* Loading / empty / error all render here. Boxed so it reads as a
+   deliberate state rather than a stray line of text in whitespace. */
 .repo-status {
   grid-column: 1 / -1;
   text-align: center;
   color: var(--slate);
+  font-size: 0.95rem;
+  margin: 0;
+  padding: 2.25rem 1.5rem;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
 }
 
 .repo-meta {
