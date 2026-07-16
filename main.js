@@ -5,10 +5,46 @@
    ========================================================================== */
 
 /* -----------------------------------------------------------------------
-   EXPERIENCE — one object per role, most recent first.
+   EXPERIENCE — one object per role, most recent first (by end date).
    Add a new role by copying an existing object and editing the fields.
+
+   Note on the CLA deal services role: it starts September 2026, so its
+   `dates` read "Starting September 2026" rather than a range. Once you
+   actually start, change this to "September 2026 – Present" and swap the
+   bullet for real accomplishments.
    ----------------------------------------------------------------------- */
 const EXPERIENCE = [
+  {
+    role: "Deal Services Associate",
+    company: "CliftonLarsonAllen",
+    location: "Boston, Massachusetts",
+    dates: "Starting September 2026",
+    bullets: [
+      "Incoming associate in CLA's deal services practice, returning to the firm after a 2025 summer internship in tax."
+    ]
+  },
+  {
+    role: "Co-Founder / Head of Finance",
+    company: "Career Exposure Club",
+    location: "Tucson, Arizona",
+    dates: "February 2024 – May 2026",
+    bullets: [
+      "Led budgeting, fundraising, and sponsorship, securing $5,000+ in funding from the University of Arizona.",
+      "Built the club's financial strategy with cost-effective initiatives that maximized resource allocation.",
+      "Cultivated a cross-industry professional network for workshops, guest lectures, and mentorship."
+    ]
+  },
+  {
+    role: "Accounting / Gameday Operations Intern",
+    company: "Barstool Sports Arizona Bowl",
+    location: "Tucson, Arizona",
+    dates: "September 2022 – December 2025",
+    bullets: [
+      "Coordinated financial data across event management and marketing to help execute the football bowl game.",
+      "Supported compliance and internal auditing — verifying transactions and assisting with financial statement prep.",
+      "Communicated across three teams to facilitate events leading up to the bowl game."
+    ]
+  },
   {
     role: "Summer Tax Intern",
     company: "CliftonLarsonAllen",
@@ -18,28 +54,6 @@ const EXPERIENCE = [
       "Reconciled $10M+ in client financial data and conducted tax research on 20+ cases to optimize deductions and credits.",
       "Prepared and reviewed federal and state tax returns for individuals, corporations, and partnerships, ensuring accuracy and compliance.",
       "Streamlined workflows in CCH Axcess and Excel, reducing preparation time by 15% and delivering projects ahead of deadlines."
-    ]
-  },
-  {
-    role: "Accounting / Gameday Operations Intern",
-    company: "Barstool Sports Arizona Bowl",
-    location: "Tucson, Arizona",
-    dates: "September 2022 – Present",
-    bullets: [
-      "Coordinated financial data across event management and marketing to help execute the football bowl game.",
-      "Supported compliance and internal auditing — verifying transactions and assisting with financial statement prep.",
-      "Communicated across three teams to facilitate events leading up to the bowl game."
-    ]
-  },
-  {
-    role: "Co-Founder / Head of Finance",
-    company: "Career Exposure Club",
-    location: "Tucson, Arizona",
-    dates: "February 2024 – Present",
-    bullets: [
-      "Led budgeting, fundraising, and sponsorship, securing $5,000+ in funding from the University of Arizona.",
-      "Built the club's financial strategy with cost-effective initiatives that maximized resource allocation.",
-      "Cultivated a cross-industry professional network for workshops, guest lectures, and mentorship."
     ]
   }
 ];
