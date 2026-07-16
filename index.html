@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dylan Dreis — Accounting &amp; finance professional building with AI</title>
+  <meta name="description" content="Dylan Dreis — accounting and finance professional at the University of Arizona, building AI projects in his free time.">
+
+  <!-- Optional Google Fonts: serif for headings, system sans for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Skip link for keyboard/screen-reader users -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ STICKY NAV ============ -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary">
+      <a href="#home" class="nav-logo">Dylan Dreis</a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation menu">
+        <span class="hamburger"></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-avatar" aria-hidden="true">DD</div>
+        <h1 class="hero-name">Dylan Dreis</h1>
+        <p class="hero-headline">Accounting &amp; finance professional building with AI</p>
+        <p class="hero-intro">
+          Accounting major at the University of Arizona's Eller College of Management, based in Tucson, Arizona.
+          I work in tax and financial operations by day, and build AI tools that automate financial workflows in my free time.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View my work</a>
+          <a href="assets/resume.pdf" class="btn btn-secondary" download>Download résumé</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title">About</h2>
+        <div class="about-content">
+          <p>
+            I'm an accounting major at the University of Arizona's Eller College of Management, graduating in 2026,
+            with hands-on experience in tax preparation, reconciliations, and financial operations. My internships
+            and campus leadership roles have given me a practical grounding in how finance teams actually operate —
+            from federal and state tax returns to event-day financial coordination for a live sporting event.
+          </p>
+          <p>
+            Outside of coursework, I'm passionate about the intersection of finance and technology. I spend my free
+            time building AI projects that automate financial workflows and surface insights from data, aiming to
+            bring the same rigor I apply to reconciliations and tax research to the tools I build.
+          </p>
+          <p>
+            I'm especially interested in sports business, franchise valuation, and M&amp;A in professional sports —
+            an interest sharpened by my work with the Barstool Sports Arizona Bowl and four years as a varsity
+            football captain.
+          </p>
+
+          <div class="about-details">
+            <div class="about-block">
+              <h3>Education</h3>
+              <p>
+                <strong>University of Arizona, Eller College of Management</strong> — Tucson, Arizona<br>
+                B.S. in Business Administration, Major: Accounting — Graduation 2026<br>
+                GPA: 3.47<br>
+                Honors: Arizona Community Federal Sands Scholarship, Wildcat Excellence Tuition Scholarship
+              </p>
+            </div>
+
+            <div class="about-block">
+              <h3>Skills</h3>
+              <ul class="tag-list" aria-label="Skills">
+                <li class="tag">Microsoft Excel (advanced)</li>
+                <li class="tag">Financial modeling</li>
+                <li class="tag">Market research &amp; industry analysis</li>
+                <li class="tag">Tax preparation</li>
+                <li class="tag">CCH Axcess</li>
+                <li class="tag">Reconciliations</li>
+              </ul>
+            </div>
+
+            <div class="about-block">
+              <h3>Activities &amp; interests</h3>
+              <p>
+                Four-year varsity football captain, Phi Gamma Delta Fraternity (Upsilon Alpha).
+                Interested in sports business &amp; franchise valuation, M&amp;A in professional sports,
+                college football analytics, golf, and international travel.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="experience" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Experience</h2>
+        <!-- Populated from the EXPERIENCE array in main.js -->
+        <ol class="timeline" id="timelineList" aria-label="Work experience timeline"></ol>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED AI PROJECTS ============ -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2 class="section-title">Featured AI projects</h2>
+        <p class="section-subtitle">
+          A few finance-focused AI projects I've been building in my free time.
+          <!-- TODO: replace the placeholder cards in main.js with your real projects -->
+        </p>
+        <!-- Populated from the PROJECTS array in main.js -->
+        <div class="project-grid" id="projectGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ LATEST FROM GITHUB ============ -->
+    <section id="github" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">Latest from GitHub</h2>
+        <p class="section-subtitle">Live feed of my most recently updated public repositories.</p>
+        <div class="repo-grid" id="repoGrid">
+          <p class="repo-status" id="repoStatus">Loading repositories…</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ CONTACT / FOOTER ============ -->
+  <footer id="contact" class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="footer-name">Dylan Dreis</p>
+        <p class="footer-location">Tucson, Arizona</p>
+      </div>
+
+      <ul class="footer-links" aria-label="Contact links">
+        <li>
+          <a href="mailto:ddreis2003@gmail.com" aria-label="Email Dylan Dreis">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.4 5.9a.75.75 0 0 0 .8 0l7.4-5.9a.5.5 0 0 0-.3-.9H4.5a.5.5 0 0 0-.3.9Z"/></svg>
+            <span>Email</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/dylandreis" target="_blank" rel="noopener noreferrer" aria-label="Dylan Dreis on LinkedIn">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1s2.5 1.12 2.5 2.5ZM.24 8.25h4.48V23H.24V8.25ZM8.13 8.25h4.29v2.01h.06c.6-1.13 2.06-2.33 4.24-2.33 4.54 0 5.38 2.99 5.38 6.87V23h-4.47v-6.34c0-1.51-.03-3.46-2.11-3.46-2.11 0-2.43 1.65-2.43 3.35V23H8.13V8.25Z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/ddreis2003-glitch" target="_blank" rel="noopener noreferrer" aria-label="Dylan Dreis on GitHub">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+            <span>GitHub</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p class="footer-copyright">&copy; <span id="year"></span> Dylan Dreis. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

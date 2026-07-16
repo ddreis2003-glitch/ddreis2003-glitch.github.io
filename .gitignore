@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/
+
+# Working notes — kept local, since this repo is public.
+# These contain session logs and the build spec, not site content.
+CLAUDE.md
+HANDOFF.md
+CLAUDE_CODE_PROMPT.md
+
+# Placeholder note — delete once the real resume.pdf is added
+assets/PLACE_RESUME_HERE.txt
