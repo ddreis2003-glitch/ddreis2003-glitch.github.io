@@ -655,9 +655,19 @@ button:focus-visible {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
+  align-items: flex-start;
+  gap: 2.5rem 3rem;
   margin-bottom: 3rem;
+}
+
+.footer-heading {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+  margin: 0 0 1.1rem;
 }
 
 .footer-name {
@@ -675,21 +685,36 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
-.footer-links { display: flex; gap: 2rem; }
+/* A column, not a row: these now carry full addresses rather than one-word
+   labels, and an email set in uppercase tracking would read as a heading. */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
 
 .footer-links a {
   color: #C7D2DE;
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.78rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  transition: color 0.16s ease;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  text-transform: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.16s ease, border-color 0.16s ease;
 }
 
-.footer-links a:hover { color: var(--accent-on-dark); }
+/* --accent-on-dark, never --accent: --accent on the navy footer is 1.62:1. */
+.footer-links a:hover {
+  color: var(--accent-on-dark);
+  border-bottom-color: var(--accent-on-dark);
+}
+
+.footer-links a:hover .icon { fill: var(--accent-on-dark); }
 
 .icon { width: 15px; height: 15px; fill: currentColor; }
 
@@ -749,6 +774,6 @@ button:focus-visible {
   .about-details { margin-top: 2.5rem; }
   .edu-facts > div { grid-template-columns: 80px 1fr; gap: 0.75rem; }
 
-  .footer-inner { flex-direction: column; text-align: center; }
-  .footer-links { flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
+  .footer-inner { flex-direction: column; align-items: flex-start; text-align: left; gap: 2.25rem; }
+  .footer-links { align-items: flex-start; }
 }

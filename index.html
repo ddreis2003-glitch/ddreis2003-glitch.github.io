@@ -207,31 +207,38 @@
   <!-- ============ CONTACT / FOOTER ============ -->
   <footer id="contact" class="site-footer">
     <div class="container footer-inner">
-      <div>
+      <div class="footer-identity">
         <p class="footer-name">Dylan Dreis</p>
         <p class="footer-location">Boston, Massachusetts</p>
       </div>
 
-      <ul class="footer-links" aria-label="Contact links">
-        <li>
-          <a href="mailto:ddreis2003@gmail.com" aria-label="Email Dylan Dreis">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.4 5.9a.75.75 0 0 0 .8 0l7.4-5.9a.5.5 0 0 0-.3-.9H4.5a.5.5 0 0 0-.3.9Z"/></svg>
-            <span>Email</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/dylandreis" target="_blank" rel="noopener noreferrer" aria-label="Dylan Dreis on LinkedIn">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1s2.5 1.12 2.5 2.5ZM.24 8.25h4.48V23H.24V8.25ZM8.13 8.25h4.29v2.01h.06c.6-1.13 2.06-2.33 4.24-2.33 4.54 0 5.38 2.99 5.38 6.87V23h-4.47v-6.34c0-1.51-.03-3.46-2.11-3.46-2.11 0-2.43 1.65-2.43 3.35V23H8.13V8.25Z"/></svg>
-            <span>LinkedIn</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/ddreis2003-glitch" target="_blank" rel="noopener noreferrer" aria-label="Dylan Dreis on GitHub">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
-            <span>GitHub</span>
-          </a>
-        </li>
-      </ul>
+      <!-- Show the actual addresses, not just labels — this is the contact
+           section, so the details should be readable without hovering.
+           Hovers here MUST use --accent-on-dark: --accent on the navy footer
+           is 1.62:1 and effectively invisible. -->
+      <div class="footer-contact">
+        <h2 class="footer-heading">Get in touch</h2>
+        <ul class="footer-links" aria-label="Contact links">
+          <li>
+            <a href="mailto:ddreis2003@gmail.com">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Zm2.2.3 7.4 5.9a.75.75 0 0 0 .8 0l7.4-5.9a.5.5 0 0 0-.3-.9H4.5a.5.5 0 0 0-.3.9Z"/></svg>
+              <span>ddreis2003@gmail.com</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/dylandreis/" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1s2.5 1.12 2.5 2.5ZM.24 8.25h4.48V23H.24V8.25ZM8.13 8.25h4.29v2.01h.06c.6-1.13 2.06-2.33 4.24-2.33 4.54 0 5.38 2.99 5.38 6.87V23h-4.47v-6.34c0-1.51-.03-3.46-2.11-3.46-2.11 0-2.43 1.65-2.43 3.35V23H8.13V8.25Z"/></svg>
+              <span>linkedin.com/in/dylandreis</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/ddreis2003-glitch" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.6 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.7 5.6-5.4 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+              <span>github.com/ddreis2003-glitch</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
     <p class="footer-copyright">&copy; <span id="year"></span> Dylan Dreis. All rights reserved.</p>
   </footer>
