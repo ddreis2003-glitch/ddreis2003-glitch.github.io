@@ -12,3 +12,8 @@ CLAUDE_CODE_PROMPT.md
 
 # Placeholder note — delete once the real resume.pdf is added
 assets/PLACE_RESUME_HERE.txt
+
+# Source/originals and local verification screenshots — kept local, not shipped.
+# The site uses the resized assets/headshot.jpg; the full-res original stays off the public repo.
+assets/Professional Headshot 3.jpg
+verify-desktop.png

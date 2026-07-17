@@ -375,9 +375,68 @@ button:focus-visible {
 }
 
 /* ---------- About ---------- */
-/* Prose keeps a 760px reading measure. The data blocks below sit OUTSIDE
-   .about-content in the markup so they can use the full container — that
-   width is what lets the skill pills sit two-per-row rather than stacking. */
+/* Intro row: prose + portrait across the full container. Details grid below
+   stays outside .about-content so pills keep their width (see CLAUDE.md). */
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(252px, 29vw, 300px);
+  gap: clamp(2.25rem, 4.5vw, 4rem);
+  align-items: start;
+}
+
+.about-intro .about-content {
+  max-width: none;
+  min-width: 0;
+}
+
+/* Editorial portrait mount — white mat, hairline frame, accent cap, layered
+   depth. Matches card shadow language; not a bare img in a box. */
+.about-portrait {
+  margin: 0.2rem 0 0;
+  justify-self: start;
+}
+
+.about-portrait-frame {
+  position: relative;
+  background: var(--white);
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow:
+    0 1px 2px rgba(10, 18, 28, 0.04),
+    0 8px 24px rgba(10, 18, 28, 0.05),
+    0 20px 48px rgba(10, 18, 28, 0.04);
+}
+
+/* Echoes the 44px section rule at portrait scale — sits on the mat, not the crop. */
+.about-portrait-frame::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 2.75rem;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.about-portrait-media {
+  overflow: hidden;
+  line-height: 0;
+  background: var(--ink-soft);
+}
+
+.about-portrait-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  /* Chest-up crop — face centred, slight top bias for the suit line. */
+  object-position: 50% 16%;
+}
+
 .about-content { max-width: 760px; }
 
 /* Skills gets the wider share: pills need room, Education is text. */
@@ -739,6 +798,18 @@ button:focus-visible {
   .about-details {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-portrait {
+    order: -1;
+    max-width: 272px;
   }
 }
 
