@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Boston skyline silhouette">
+  <title>Boston skyline silhouette</title>
+
+  <!--
+       Hand-drawn Boston skyline silhouette.
+       Original work for this site, so there is no third-party image licence.
+
+       Two depth layers: the far group sits behind and lighter, the near
+       group in front. NOTE: XML comments cannot contain a double hyphen,
+       so do not write CSS custom-property names here. It silently breaks
+       the whole file: the SVG fails to parse and renders as nothing.
+
+       Landmarks left to right: Zakim Bridge, Bunker Hill Monument, Custom
+       House Tower, One International Place, Federal Reserve, Prudential
+       Tower, 200 Clarendon (John Hancock).
+  -->
+
+  <defs>
+    <!-- Both layers must stay LIGHTER than the hero background, or the
+         silhouette disappears into it. Far is hazier/lower contrast to
+         read as distance; near is the crisper foreground. -->
+    <linearGradient id="farFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#20374F" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#26405C" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="nearFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#2A4767" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1B3049" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- FAR LAYER -->
+  <g fill="url(#farFade)">
+    <rect x="60"   y="300" width="70"  height="120"/>
+    <rect x="200"  y="270" width="55"  height="150"/>
+    <rect x="330"  y="290" width="80"  height="130"/>
+    <rect x="470"  y="250" width="60"  height="170"/>
+    <rect x="620"  y="275" width="75"  height="145"/>
+    <rect x="760"  y="235" width="55"  height="185"/>
+    <rect x="880"  y="265" width="85"  height="155"/>
+    <rect x="1030" y="240" width="60"  height="180"/>
+    <rect x="1160" y="280" width="90"  height="140"/>
+    <rect x="1300" y="255" width="65"  height="165"/>
+    <rect x="1430" y="285" width="80"  height="135"/>
+    <!-- far taller slabs for depth -->
+    <rect x="915"  y="190" width="38"  height="230"/>
+    <rect x="1215" y="205" width="34"  height="215"/>
+  </g>
+
+  <!-- NEAR LAYER -->
+  <g fill="url(#nearFade)">
+
+    <!-- Zakim Bunker Hill Bridge: deck + two inverted-Y pylons -->
+    <rect x="40" y="336" width="360" height="9"/>
+    <!-- pylon 1 -->
+    <path d="M112 345 L136 276 L144 276 L168 345 Z"/>
+    <rect x="136" y="150" width="8" height="130"/>
+    <g stroke="#12233A" stroke-width="1.6" opacity="0.9">
+      <line x1="140" y1="158" x2="58"  y2="336"/>
+      <line x1="140" y1="158" x2="86"  y2="336"/>
+      <line x1="140" y1="158" x2="112" y2="336"/>
+      <line x1="140" y1="158" x2="196" y2="336"/>
+      <line x1="140" y1="158" x2="222" y2="336"/>
+      <line x1="140" y1="158" x2="250" y2="336"/>
+    </g>
+    <!-- pylon 2 -->
+    <path d="M272 345 L296 276 L304 276 L328 345 Z"/>
+    <rect x="296" y="168" width="8" height="112"/>
+    <g stroke="#12233A" stroke-width="1.6" opacity="0.9">
+      <line x1="300" y1="176" x2="228" y2="336"/>
+      <line x1="300" y1="176" x2="256" y2="336"/>
+      <line x1="300" y1="176" x2="344" y2="336"/>
+      <line x1="300" y1="176" x2="372" y2="336"/>
+    </g>
+    <rect x="40" y="345" width="360" height="75"/>
+
+    <!-- Bunker Hill Monument (obelisk) -->
+    <path d="M424 420 L424 246 L430 214 L436 246 L436 420 Z"/>
+
+    <!-- low waterfront block -->
+    <rect x="452" y="352" width="70" height="68"/>
+
+    <!-- Custom House Tower: base, shaft, clock, pyramid crown -->
+    <rect x="536" y="316" width="72" height="104"/>
+    <rect x="554" y="196" width="36" height="122"/>
+    <circle cx="572" cy="228" r="9" fill="#7FA3C9" opacity="0.85"/>
+    <path d="M552 196 L572 158 L592 196 Z"/>
+
+    <!-- mid-rise cluster -->
+    <rect x="626" y="300" width="46" height="120"/>
+    <rect x="682" y="330" width="38" height="90"/>
+
+    <!-- One International Place: twin rounded crowns -->
+    <path d="M738 420 L738 250 A16 16 0 0 1 770 250 L770 420 Z"/>
+    <path d="M772 420 L772 268 A14 14 0 0 1 800 268 L800 420 Z"/>
+
+    <!-- Federal Reserve: ribbed slab -->
+    <rect x="820" y="228" width="52" height="192"/>
+    <rect x="828" y="212" width="36" height="18"/>
+
+    <!-- filler -->
+    <rect x="886" y="318" width="44" height="102"/>
+
+    <!-- Prudential Tower: slab + antenna -->
+    <rect x="948" y="128" width="66" height="292"/>
+    <rect x="976" y="86"  width="5"  height="42"/>
+    <rect x="944" y="300" width="74" height="120"/>
+
+    <!-- filler -->
+    <rect x="1026" y="330" width="30" height="90"/>
+
+    <!-- 200 Clarendon (John Hancock): tall glass slab -->
+    <rect x="1064" y="106" width="58" height="314"/>
+
+    <!-- right-hand cluster -->
+    <rect x="1136" y="292" width="52" height="128"/>
+    <rect x="1200" y="252" width="40" height="168"/>
+    <rect x="1252" y="322" width="60" height="98"/>
+    <rect x="1324" y="276" width="46" height="144"/>
+    <rect x="1382" y="336" width="70" height="84"/>
+    <rect x="1464" y="300" width="52" height="120"/>
+    <rect x="1528" y="340" width="72" height="80"/>
+
+    <!-- ground line -->
+    <rect x="0" y="404" width="1600" height="16"/>
+  </g>
+</svg>

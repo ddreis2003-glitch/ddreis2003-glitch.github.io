@@ -40,11 +40,17 @@
 
     <!-- ============ HERO ============ -->
     <section id="home" class="hero">
-      <!-- Decorative background animation; drawn by initHeroCanvas() in main.js -->
-      <canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <!-- Decorative Boston skyline backdrop. .hero-skyline is translated by
+           initParallax() in main.js; the scrim + vignette keep the copy legible. -->
+      <div class="hero-bg" aria-hidden="true">
+        <div class="hero-skyline" id="heroSkyline"></div>
+        <div class="hero-scrim"></div>
+        <div class="hero-vignette"></div>
+      </div>
       <div class="container hero-inner">
-        <div class="hero-avatar" aria-hidden="true">DD</div>
+        <p class="hero-eyebrow">Boston, Massachusetts</p>
         <h1 class="hero-name">Dylan Dreis</h1>
+        <div class="hero-rule" aria-hidden="true"></div>
         <p class="hero-headline">Accounting &amp; finance professional building with AI</p>
         <p class="hero-intro">
           I recently graduated from the University of Arizona's Eller College of Management with a degree in accounting,
@@ -62,7 +68,9 @@
     <!-- ============ ABOUT ============ -->
     <section id="about" class="section">
       <div class="container">
+        <p class="section-label">01 — Profile</p>
         <h2 class="section-title">About</h2>
+        <div class="section-rule" aria-hidden="true"></div>
         <div class="about-content">
           <p>
             I graduated from the University of Arizona's Eller College of Management with a degree in accounting, and
@@ -120,7 +128,9 @@
     <!-- ============ EXPERIENCE ============ -->
     <section id="experience" class="section section-alt">
       <div class="container">
+        <p class="section-label">02 — Track record</p>
         <h2 class="section-title">Experience</h2>
+        <div class="section-rule" aria-hidden="true"></div>
         <!-- Populated from the EXPERIENCE array in main.js -->
         <ol class="timeline" id="timelineList" aria-label="Work experience timeline"></ol>
       </div>
@@ -129,7 +139,9 @@
     <!-- ============ FEATURED AI PROJECTS ============ -->
     <section id="projects" class="section">
       <div class="container">
+        <p class="section-label">03 — Selected work</p>
         <h2 class="section-title">Featured AI projects</h2>
+        <div class="section-rule" aria-hidden="true"></div>
         <p class="section-subtitle">
           A few finance-focused AI projects I've been building in my free time.
           <!-- TODO: replace the placeholder cards in main.js with your real projects -->
@@ -142,7 +154,9 @@
     <!-- ============ LATEST FROM GITHUB ============ -->
     <section id="github" class="section section-alt">
       <div class="container">
+        <p class="section-label">04 — Open source</p>
         <h2 class="section-title">Latest from GitHub</h2>
+        <div class="section-rule" aria-hidden="true"></div>
         <p class="section-subtitle">Live feed of my most recently updated public repositories.</p>
         <div class="repo-grid" id="repoGrid">
           <p class="repo-status" id="repoStatus">Loading repositories…</p>
@@ -157,7 +171,7 @@
     <div class="container footer-inner">
       <div>
         <p class="footer-name">Dylan Dreis</p>
-        <p class="footer-location">Tucson, Arizona</p>
+        <p class="footer-location">Boston, Massachusetts</p>
       </div>
 
       <ul class="footer-links" aria-label="Contact links">

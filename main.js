@@ -175,186 +175,47 @@ async function renderGithubRepos() {
 }
 
 /* -----------------------------------------------------------------------
-   Hero background animation
+   Hero parallax — the Boston skyline drifts slower than the page.
 
-   A slow field of drifting dots, linked by faint lines when they come
-   close, that gently leans toward the cursor. Deliberately understated —
-   it must never compete with the hero text sitting on top of it.
+   Chose a JS transform over `background-attachment: fixed` deliberately:
+   `fixed` is ignored on iOS Safari (so mobile would get no parallax at
+   all) and forces repaints on scroll. translate3d is GPU-composited and
+   behaves the same everywhere.
 
-   Guardrails worth keeping if you edit this:
-   - Particle alpha stays low. The white hero text must stay legible.
-   - Honours prefers-reduced-motion: draws ONE static frame, never animates.
-   - Pauses when the tab is hidden or the hero scrolls out of view, so it
-     costs nothing while you're reading the rest of the page.
-   - Particle count scales with area and is capped, so phones stay smooth.
+   Guardrails:
+   - prefers-reduced-motion: bail out entirely, leaving the skyline static.
+   - Skips work once the hero is off-screen.
+   - Throttled through requestAnimationFrame.
    ----------------------------------------------------------------------- */
-function initHeroCanvas() {
-  const canvas = document.getElementById("heroCanvas");
-  if (!canvas || !canvas.getContext) return;
+function initParallax() {
+  const skyline = document.getElementById("heroSkyline");
+  const hero = document.getElementById("home");
+  if (!skyline || !hero) return;
 
-  const ctx = canvas.getContext("2d");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  // Reduced motion: static background, no listeners at all.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const DOT_RGB = "143, 180, 217"; // --accent-on-dark
-  const DOT_ALPHA = 0.5;
-  const LINE_ALPHA = 0.14;         // keep low: lines cross the headline
-  const PULL_RADIUS = 140;
+  const RATE = 0.35; // skyline travels at 65% of scroll speed
+  let ticking = false;
 
-  let width = 0;
-  let height = 0;
-  let particles = [];
-  let rafId = null;
-  let visible = true;
+  function update() {
+    ticking = false;
+    const rect = hero.getBoundingClientRect();
+    if (rect.bottom <= 0 || rect.top >= window.innerHeight) return; // off-screen
 
-  const pointer = { x: 0, y: 0, active: false };
-
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2); // cap: retina phones
-    width = canvas.clientWidth;
-    height = canvas.clientHeight;
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const scrolled = Math.min(Math.max(-rect.top, 0), rect.height);
+    skyline.style.transform = "translate3d(0, " + (scrolled * RATE).toFixed(2) + "px, 0)";
   }
 
-  function seed() {
-    // Density follows area, floor for tiny screens, ceiling for big ones.
-    const target = Math.round((width * height) / 16000);
-    const count = Math.max(24, Math.min(80, target));
-    particles = [];
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.2,
-        vy: (Math.random() - 0.5) * 0.2,
-        r: Math.random() * 1.3 + 0.7
-      });
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
     }
-  }
+  }, { passive: true });
 
-  function linkDistance() {
-    return Math.max(90, Math.min(150, width / 9));
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, width, height);
-    const link = linkDistance();
-
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      for (let j = i + 1; j < particles.length; j++) {
-        const q = particles[j];
-        const dx = p.x - q.x;
-        const dy = p.y - q.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < link * link) {
-          const alpha = (1 - Math.sqrt(d2) / link) * LINE_ALPHA;
-          ctx.strokeStyle = `rgba(${DOT_RGB}, ${alpha})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(q.x, q.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    ctx.fillStyle = `rgba(${DOT_RGB}, ${DOT_ALPHA})`;
-    for (const p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  function step() {
-    for (const p of particles) {
-      p.x += p.vx;
-      p.y += p.vy;
-
-      if (pointer.active) {
-        const dx = pointer.x - p.x;
-        const dy = pointer.y - p.y;
-        const d = Math.hypot(dx, dy);
-        if (d < PULL_RADIUS && d > 0.5) {
-          const pull = (1 - d / PULL_RADIUS) * 0.4;
-          p.x += (dx / d) * pull;
-          p.y += (dy / d) * pull;
-        }
-      }
-
-      // Wrap around the edges so the field never thins out.
-      if (p.x < -20) p.x = width + 20;
-      else if (p.x > width + 20) p.x = -20;
-      if (p.y < -20) p.y = height + 20;
-      else if (p.y > height + 20) p.y = -20;
-    }
-
-    draw();
-    rafId = requestAnimationFrame(step);
-  }
-
-  function start() {
-    if (rafId !== null || prefersReducedMotion) return;
-    rafId = requestAnimationFrame(step);
-  }
-
-  function stop() {
-    if (rafId === null) return;
-    cancelAnimationFrame(rafId);
-    rafId = null;
-  }
-
-  function rebuild() {
-    resize();
-    seed();
-    draw(); // paint immediately, so there's never an empty frame
-  }
-
-  rebuild();
-
-  if (prefersReducedMotion) {
-    // Static field only. Still redraw on resize so it never looks stretched.
-    window.addEventListener("resize", rebuild);
-    return;
-  }
-
-  if (canHover) {
-    canvas.parentElement.addEventListener("mousemove", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
-      pointer.active = true;
-    });
-    canvas.parentElement.addEventListener("mouseleave", () => {
-      pointer.active = false;
-    });
-  }
-
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(rebuild, 150);
-  });
-
-  // Don't burn frames on a hidden tab.
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stop();
-    else if (visible) start();
-  });
-
-  // Don't burn frames once the hero is scrolled past.
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver((entries) => {
-      visible = entries[0].isIntersecting;
-      if (visible && !document.hidden) start();
-      else stop();
-    }, { threshold: 0 }).observe(canvas);
-  } else {
-    start();
-  }
+  window.addEventListener("resize", update);
+  update();
 }
 
 /* -----------------------------------------------------------------------
@@ -449,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   renderGithubRepos();
   initNavToggle();
-  initHeroCanvas();
+  initParallax();
   initScrollSpy();
   document.getElementById("year").textContent = new Date().getFullYear();
 });
