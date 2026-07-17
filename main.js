@@ -175,50 +175,6 @@ async function renderGithubRepos() {
 }
 
 /* -----------------------------------------------------------------------
-   Hero parallax — the Boston skyline drifts slower than the page.
-
-   Chose a JS transform over `background-attachment: fixed` deliberately:
-   `fixed` is ignored on iOS Safari (so mobile would get no parallax at
-   all) and forces repaints on scroll. translate3d is GPU-composited and
-   behaves the same everywhere.
-
-   Guardrails:
-   - prefers-reduced-motion: bail out entirely, leaving the skyline static.
-   - Skips work once the hero is off-screen.
-   - Throttled through requestAnimationFrame.
-   ----------------------------------------------------------------------- */
-function initParallax() {
-  const skyline = document.getElementById("heroSkyline");
-  const hero = document.getElementById("home");
-  if (!skyline || !hero) return;
-
-  // Reduced motion: static background, no listeners at all.
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const RATE = 0.35; // skyline travels at 65% of scroll speed
-  let ticking = false;
-
-  function update() {
-    ticking = false;
-    const rect = hero.getBoundingClientRect();
-    if (rect.bottom <= 0 || rect.top >= window.innerHeight) return; // off-screen
-
-    const scrolled = Math.min(Math.max(-rect.top, 0), rect.height);
-    skyline.style.transform = "translate3d(0, " + (scrolled * RATE).toFixed(2) + "px, 0)";
-  }
-
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }, { passive: true });
-
-  window.addEventListener("resize", update);
-  update();
-}
-
-/* -----------------------------------------------------------------------
    Nav scroll-spy — highlights the nav link for the section in view.
 
    Deliberately NOT using IntersectionObserver: its enter/leave events
@@ -310,7 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   renderGithubRepos();
   initNavToggle();
-  initParallax();
   initScrollSpy();
   document.getElementById("year").textContent = new Date().getFullYear();
 });

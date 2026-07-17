@@ -40,15 +40,17 @@
 
     <!-- ============ HERO ============ -->
     <section id="home" class="hero">
-      <!-- Decorative Boston skyline backdrop. .hero-skyline is translated by
-           initParallax() in main.js; the scrim + vignette keep the copy legible. -->
+      <!-- Typography-led masthead. Everything here is decorative "finish" and
+           must stay whisper-quiet: a directional glow for depth, hairline
+           column rules aligned to the content grid, and an oversized initial
+           watermark. All aria-hidden — no content lives in this layer. -->
       <div class="hero-bg" aria-hidden="true">
-        <div class="hero-skyline" id="heroSkyline"></div>
-        <div class="hero-scrim"></div>
-        <div class="hero-vignette"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-rules"><span></span><span></span><span></span><span></span></div>
+        <div class="hero-mark">DD</div>
       </div>
       <div class="container hero-inner">
-        <p class="hero-eyebrow">Boston, Massachusetts</p>
+        <p class="hero-eyebrow"><span class="hero-eyebrow-rule"></span>Boston, Massachusetts</p>
         <h1 class="hero-name">Dylan Dreis</h1>
         <div class="hero-rule" aria-hidden="true"></div>
         <p class="hero-headline">Accounting &amp; finance professional building with AI</p>
