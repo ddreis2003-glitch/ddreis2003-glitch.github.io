@@ -345,6 +345,30 @@ button:focus-visible {
 
 .about-block p { font-size: 0.95rem; color: var(--slate); }
 
+/* Focus-area list in the About "Interests" block. That block is
+   .about-block:last-child, so it spans the full grid width — the columns
+   here sit across it. */
+.interest-list {
+  display: grid;
+  gap: 1.5rem 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin: 0;
+}
+
+.interest dt {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.interest dd {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--slate);
+}
+
 .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
 .tag {
