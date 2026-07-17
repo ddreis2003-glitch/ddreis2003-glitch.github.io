@@ -92,15 +92,35 @@
             direction I want to build toward.
           </p>
 
-          <div class="about-details">
+        </div>
+
+        <!-- Deliberately OUTSIDE .about-content: the prose is capped at a 760px
+             reading measure, but these data blocks use the full container. That
+             extra width is what lets the skill pills sit two-per-row instead of
+             stacking into a single cramped column. -->
+        <div class="about-details">
             <div class="about-block">
               <h3>Education</h3>
-              <p>
-                <strong>University of Arizona, Eller College of Management</strong> — Tucson, Arizona<br>
-                B.S. in Business Administration, Major: Accounting — Graduated 2026<br>
-                GPA: 3.47<br>
-                Honors: Arizona Community Federal Sands Scholarship, Wildcat Excellence Tuition Scholarship
-              </p>
+              <p class="edu-school">University of Arizona</p>
+              <p class="edu-meta">Eller College of Management · Tucson, Arizona</p>
+              <dl class="edu-facts">
+                <div>
+                  <dt>Degree</dt>
+                  <dd>B.S. Business Administration, Accounting</dd>
+                </div>
+                <div>
+                  <dt>Graduated</dt>
+                  <dd>2026</dd>
+                </div>
+                <div>
+                  <dt>GPA</dt>
+                  <dd>3.47</dd>
+                </div>
+                <div>
+                  <dt>Honors</dt>
+                  <dd>Arizona Community Federal Sands Scholarship · Wildcat Excellence Tuition Scholarship</dd>
+                </div>
+              </dl>
             </div>
 
             <div class="about-block">
@@ -139,7 +159,6 @@
                 </div>
               </dl>
             </div>
-          </div>
         </div>
       </div>
     </section>
