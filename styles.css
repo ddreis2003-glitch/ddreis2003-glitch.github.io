@@ -379,7 +379,7 @@ button:focus-visible {
    stays outside .about-content so pills keep their width (see CLAUDE.md). */
 .about-intro {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(252px, 29vw, 300px);
+  grid-template-columns: minmax(0, 1fr) clamp(288px, 33vw, 348px);
   gap: clamp(2.25rem, 4.5vw, 4rem);
   align-items: start;
 }
@@ -809,7 +809,7 @@ button:focus-visible {
 
   .about-portrait {
     order: -1;
-    max-width: 272px;
+    max-width: 320px;
   }
 }
 
