@@ -254,10 +254,10 @@ button:focus-visible {
   left: 2%;
   top: -8%;
   background: radial-gradient(closest-side,
-    rgba(143, 180, 217, 0.05) 0%,
-    rgba(143, 180, 217, 0.02) 45%,
+    rgba(143, 180, 217, 0.075) 0%,
+    rgba(143, 180, 217, 0.03) 45%,
     transparent 76%);
-  animation: heroAuroraA 34s ease-in-out infinite alternate;
+  animation: heroAuroraA 30s ease-in-out infinite alternate;
 }
 
 .hero-aurora::after {
@@ -266,22 +266,24 @@ button:focus-visible {
   right: 0%;
   top: 20%;
   background: radial-gradient(closest-side,
-    rgba(120, 158, 196, 0.045) 0%,
-    rgba(120, 158, 196, 0.018) 45%,
+    rgba(120, 158, 196, 0.065) 0%,
+    rgba(120, 158, 196, 0.026) 45%,
     transparent 76%);
-  animation: heroAuroraB 26s ease-in-out infinite alternate;
+  animation: heroAuroraB 24s ease-in-out infinite alternate;
   animation-delay: -8s;
 }
 
-/* Small, slow drifts — a soft back-and-forth, no jump (alternate). */
+/* Slow drifts with enough travel to read as the light moving across the hero —
+   a soft back-and-forth, no jump (alternate). Kept restrained: still ambient
+   finish, just a touch more visible than the first pass. */
 @keyframes heroAuroraA {
-  from { transform: translate3d(-4%, -2%, 0); }
-  to   { transform: translate3d(6%, 4%, 0); }
+  from { transform: translate3d(-8%, -4%, 0); }
+  to   { transform: translate3d(11%, 6%, 0); }
 }
 
 @keyframes heroAuroraB {
-  from { transform: translate3d(3%, 3%, 0); }
-  to   { transform: translate3d(-5%, -3%, 0); }
+  from { transform: translate3d(7%, 5%, 0); }
+  to   { transform: translate3d(-9%, -5%, 0); }
 }
 
 /* JS parks the animation when the hero is off-screen or the tab is hidden. */
