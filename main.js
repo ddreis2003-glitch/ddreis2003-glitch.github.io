@@ -259,6 +259,37 @@ function initNavToggle() {
 }
 
 /* -----------------------------------------------------------------------
+   Hero ambient glow — pause it whenever it can't be seen.
+
+   The drift is pure CSS (.hero-aurora); this just parks the animation to save
+   the compositor work when the hero is scrolled off-screen or the tab is
+   hidden. Toggling animation-play-state does not restart the loop, so
+   resuming is seamless. No-op when the user prefers reduced motion (the CSS
+   has already frozen it to a static gradient).
+   ----------------------------------------------------------------------- */
+function initHeroAurora() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  let onScreen = true;
+
+  function sync() {
+    const paused = !onScreen || document.hidden;
+    hero.classList.toggle("is-anim-paused", paused);
+  }
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) => {
+      onScreen = entries[0].isIntersecting;
+      sync();
+    }, { threshold: 0 }).observe(hero);
+  }
+
+  document.addEventListener("visibilitychange", sync);
+}
+
+/* -----------------------------------------------------------------------
    Init
    ----------------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
@@ -267,5 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGithubRepos();
   initNavToggle();
   initScrollSpy();
+  initHeroAurora();
   document.getElementById("year").textContent = new Date().getFullYear();
 });
